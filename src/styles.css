@@ -1,0 +1,44 @@
+body {
+  font-family: "Red Hat Display", sans-serif;
+}
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+h1 {
+  color: orangered;
+}
+h2 {
+  color: blue;
+}
+.container {
+  padding: 20px;
+}
+.card {
+  max-width: 500px;
+  margin: auto;
+}
+.app-headers {
+  margin: 15px;
+}
+.weather-today {
+  margin: 15px;
+}
+.weekly-forecast {
+  max-width: 450px;
+  margin: 25px 0px 15px 5px;
+}
+.search-form {
+  padding: 10px;
+  margin-top: 10px;
+}
+.fa-cog {
+  font-size: larger;
+  opacity: 0.5;
+  text-align: right;
+}
+.fa-sun {
+  font-size: 55px;
+  color: gold;
+}
