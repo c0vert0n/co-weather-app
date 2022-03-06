@@ -12,6 +12,15 @@ h1 {
 h2 {
   color: blue;
 }
+a {
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+  color: blue;
+  cursor: pointer;
+  transition: 250ms ease;
+}
 .container {
   padding: 20px;
 }
