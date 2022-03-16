@@ -7,26 +7,37 @@ h3 {
   text-align: center;
 }
 h1 {
-  color: orangered;
+  color: #495371;
 }
 h2 {
-  color: blue;
+  color: #74959a;
 }
 a {
   color: black;
 }
 a:hover {
-  text-decoration: none;
-  color: blue;
+  text-decoration: underline;
+  color: #74959a;
   cursor: pointer;
   transition: 250ms ease;
 }
 .container {
   padding: 20px;
 }
+.weather-app-wrapper {
+  max-width: 500px;
+  margin: 50px auto;
+}
 .card {
   max-width: 500px;
-  margin: auto;
+  margin-bottom: 10px;
+  background: radial-gradient(73% 147%, #f0e3e3 59%, #ece2df 100%),
+    radial-gradient(
+      91% 146%,
+      rgba(255, 255, 255, 0.5) 47%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  border-radius: 15px;
 }
 .app-headers {
   margin: 15px;
@@ -41,6 +52,14 @@ a:hover {
 .search-form {
   padding: 10px;
   margin-top: 10px;
+}
+.btn {
+  background-color: #74959a;
+  color: #fff;
+}
+.btn:hover {
+  background-color: #495371;
+  color: #fff;
 }
 .fa-cog {
   font-size: larger;

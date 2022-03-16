@@ -50,18 +50,27 @@ function getSearchCityData(event) {
 }
 
 function searchCityTemp(response) {
+  console.log(response);
   let currentCity = response.data.name;
   let header = `${currentCity}`;
   let h1 = document.querySelector("h1");
-  h1.innerHTML = header;
-
-  // document.querySelector("h1").innerHTML = response.data.name;
-
   let currentTemp = Math.round(response.data.main.temp);
   let searchCityTemperature = document.querySelector("#current-temp");
-  searchCityTemperature.innerHTML = currentTemp;
+  let currentDescription = document.querySelector("#description");
+  let currentHumidity = document.querySelector("#humidity");
+  let currentWind = document.querySelector("#wind");
+  let weatherIcon = document.querySelector("#weather-icon");
 
-  // document.querySelector("#current-temp").innerHTML = Math.round(response.data.main.temp);
+  h1.innerHTML = header;
+  searchCityTemperature.innerHTML = currentTemp;
+  currentDescription.innerHTML = response.data.weather[0].description;
+  currentHumidity.innerHTML = response.data.main.humidity;
+  currentWind.innerHTML = Math.round(response.data.wind.speed);
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", `${currentDescription}`);
 }
 
 let form = document.querySelector("#search-form");
@@ -79,13 +88,27 @@ function getLocation(position) {
 }
 
 function showCurrentTemp(response) {
+  console.log(response);
   let currentTemp = Math.round(response.data.main.temp);
   let currentCity = response.data.name;
   let header = `${currentCity}`;
   let h1 = document.querySelector("h1");
-  h1.innerHTML = header;
   let currentTemperature = document.querySelector("#current-temp");
+  let currentDescription = document.querySelector("#description");
+  let currentHumidity = document.querySelector("#humidity");
+  let currentWind = document.querySelector("#wind");
+  let weatherIcon = document.querySelector("#weather-icon");
+
+  h1.innerHTML = header;
   currentTemperature.innerHTML = currentTemp;
+  currentDescription.innerHTML = response.data.weather[0].description;
+  currentHumidity.innerHTML = response.data.main.humidity;
+  currentWind.innerHTML = Math.round(response.data.wind.speed);
+  weatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", `${currentDescription}`);
 }
 
 function getCurrentLocation() {
