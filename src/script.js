@@ -50,7 +50,6 @@ function getSearchCityData(event) {
 }
 
 function searchCityTemp(response) {
-  console.log(response);
   let currentCity = response.data.name;
   let header = `${currentCity}`;
   let h1 = document.querySelector("h1");
@@ -61,8 +60,10 @@ function searchCityTemp(response) {
   let currentWind = document.querySelector("#wind");
   let weatherIcon = document.querySelector("#weather-icon");
 
+  celsiusTemperature = response.data.main.temp;
+
   h1.innerHTML = header;
-  searchCityTemperature.innerHTML = currentTemp;
+  searchCityTemperature.innerHTML = Math.round(celsiusTemperature);
   currentDescription.innerHTML = response.data.weather[0].description;
   currentHumidity.innerHTML = response.data.main.humidity;
   currentWind.innerHTML = Math.round(response.data.wind.speed);
@@ -88,8 +89,6 @@ function getLocation(position) {
 }
 
 function showCurrentTemp(response) {
-  console.log(response);
-  let currentTemp = Math.round(response.data.main.temp);
   let currentCity = response.data.name;
   let header = `${currentCity}`;
   let h1 = document.querySelector("h1");
@@ -99,8 +98,10 @@ function showCurrentTemp(response) {
   let currentWind = document.querySelector("#wind");
   let weatherIcon = document.querySelector("#weather-icon");
 
+  celsiusTemperature = response.data.main.temp;
+
   h1.innerHTML = header;
-  currentTemperature.innerHTML = currentTemp;
+  currentTemperature.innerHTML = Math.round(celsiusTemperature);
   currentDescription.innerHTML = response.data.weather[0].description;
   currentHumidity.innerHTML = response.data.main.humidity;
   currentWind.innerHTML = Math.round(response.data.wind.speed);
@@ -121,19 +122,29 @@ currentBtn.addEventListener("click", getCurrentLocation);
 // change current temperature with celsius/fahrenheit links
 function convertCelsius(event) {
   event.preventDefault();
-  let tempCelsius = document.querySelector("#current-temp");
-  tempCelsius.innerHTML = `24`;
+  let temperatureElement = document.querySelector("#current-temp");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-// convert temperature units
 function convertFahrenheit(event) {
   event.preventDefault();
-  let tempFahrenheit = document.querySelector("#current-temp");
-  tempFahrenheit.innerHTML = `76`;
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#current-temp");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
-let linkCelsius = document.querySelector("#celsius");
+// default search city temp
+function defaultSearch(city) {
+  let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showCurrentTemp);
+}
+
+let celsiusTemperature = null;
+defaultSearch("Los Angeles");
+
+let linkCelsius = document.querySelector("#celsius-link");
 linkCelsius.addEventListener("click", convertCelsius);
 
-let fahrenheit = document.querySelector("#fahrenheit");
+let fahrenheit = document.querySelector("#fahrenheit-link");
 fahrenheit.addEventListener("click", convertFahrenheit);

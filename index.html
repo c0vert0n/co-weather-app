@@ -32,8 +32,7 @@
         <div class="card-body">
       <!--Gear Icon
           <i class="fas fa-cog card-img-top"></i>
-
-            -->
+       -->
           <form class="search-form" id="search-form">
             <div class="row">
               <div class="col-6">
@@ -55,9 +54,9 @@
           </form>
           <div class="row app-headers">
             <div class="col-sm-12">
-              <h1>Orange, CA</h1>
+              <h1></h1>
               <h2 class="font-italic" id="currentDateTime">
-                Saturday, Jan 22, 13:10
+                
               </h2>
             </div>
           </div>
@@ -65,22 +64,24 @@
           <div class="row weather-today">
             <div class="col-sm-7">
               <h3>
-                <img src="http://openweathermap.org/img/wn/01d@2x.png" alt="Weather Description" id="weather-icon" />
-                <span id="current-temp">24</span>
-                <small class="text-muted">
-                  <a href="#" id="celsius">°C</a> |
-                  <a href="#" id="fahrenheit">°F</a>
+                <div class="d-flex align-items-center">
+                <img src="http://openweathermap.org/img/wn/01d@2x.png" alt="Weather Description" id="weather-icon" class="float-left" />
+                <span id="current-temp"class="float-left">24</span>
+                <small class="text-muted units">
+                  <a href="#" id="celsius-link" class="active">°C</a> |
+                  <a href="#" id="fahrenheit-link">°F</a>
                 </small>
+                </div>
               </h3>
             </div>
             <div class="col-sm-5">
               <h5>
                 <small class="text-muted">
-                  <span id="description">Clear</span>
+                  <span id="description"></span>
                   <br />
-                  Humidity: <span id="humidity">41</span>%
+                  Humidity: <span id="humidity"></span>%
                   <br />
-                  Wind: <span id="wind">3</span> mph
+                  Wind: <span id="wind"></span> mph
                 </small>
               </h5>
             </div>

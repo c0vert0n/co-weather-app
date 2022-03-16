@@ -31,7 +31,7 @@ a:hover {
 .card {
   max-width: 500px;
   margin-bottom: 10px;
-  background: radial-gradient(73% 147%, #f0e3e3 59%, #ece2df 100%),
+  background: radial-gradient(73% 147%, #f0e3e3 59%, #f1e8e5 100%),
     radial-gradient(
       91% 146%,
       rgba(255, 255, 255, 0.5) 47%,
@@ -60,6 +60,12 @@ a:hover {
 .btn:hover {
   background-color: #495371;
   color: #fff;
+}
+.units .active {
+  color: rgba(0, 0, 0, 0.5);
+}
+.units .active:hover {
+  text-decoration: none;
 }
 .fa-cog {
   font-size: larger;
