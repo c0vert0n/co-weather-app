@@ -36,8 +36,6 @@ function currentDateTime() {
   h2.innerHTML = `${currentDay}, ${currentMonth} ${currentDate}, ${currentHour}:${currentMinutes}`;
 }
 
-currentDateTime();
-
 // Search City Temperature
 function getSearchCityData(event) {
   event.preventDefault();
@@ -141,6 +139,8 @@ function defaultSearch(city) {
 }
 
 let celsiusTemperature = null;
+
+currentDateTime();
 defaultSearch("Los Angeles");
 
 let linkCelsius = document.querySelector("#celsius-link");
