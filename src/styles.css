@@ -21,6 +21,16 @@ a:hover {
   cursor: pointer;
   transition: 250ms ease;
 }
+ul {
+  margin: 0;
+  padding: 0;
+  padding-top: 20px;
+}
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 .container {
   padding: 20px;
 }
@@ -45,6 +55,9 @@ a:hover {
 .weather-today {
   margin: 15px;
 }
+.weather-description {
+  text-transform: capitalize;
+}
 .weekly-forecast {
   max-width: 450px;
   margin: 25px 0px 15px 5px;
@@ -60,6 +73,7 @@ a:hover {
 .btn:hover {
   background-color: #495371;
   color: #fff;
+  transition: ease-in-out 300ms;
 }
 .weather-today strong {
   color: rgb(33, 33, 33);
