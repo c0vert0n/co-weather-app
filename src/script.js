@@ -51,7 +51,6 @@ function searchCityTemp(response) {
   let currentCity = response.data.name;
   let header = `${currentCity}`;
   let h1 = document.querySelector("h1");
-  let currentTemp = Math.round(response.data.main.temp);
   let searchCityTemperature = document.querySelector("#current-temp");
   let currentDescription = document.querySelector("#description");
   let currentHumidity = document.querySelector("#humidity");
@@ -121,12 +120,16 @@ currentBtn.addEventListener("click", getCurrentLocation);
 function convertCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#current-temp");
+  linkCelsius.classList.add("active");
+  linkFahrenheit.classList.remove("active");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
 function convertFahrenheit(event) {
   event.preventDefault();
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  linkCelsius.classList.remove("active");
+  linkFahrenheit.classList.add("active");
   let temperatureElement = document.querySelector("#current-temp");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
@@ -146,5 +149,5 @@ defaultSearch("Los Angeles");
 let linkCelsius = document.querySelector("#celsius-link");
 linkCelsius.addEventListener("click", convertCelsius);
 
-let fahrenheit = document.querySelector("#fahrenheit-link");
-fahrenheit.addEventListener("click", convertFahrenheit);
+let linkFahrenheit = document.querySelector("#fahrenheit-link");
+linkFahrenheit.addEventListener("click", convertFahrenheit);

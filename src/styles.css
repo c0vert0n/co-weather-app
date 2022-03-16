@@ -61,8 +61,21 @@ a:hover {
   background-color: #495371;
   color: #fff;
 }
+.weather-today strong {
+  color: rgb(33, 33, 33);
+  font-size: 55px;
+  line-height: 1;
+  font-weight: 400;
+}
+.weather-today .units {
+  position: relative;
+  font-size: 15px;
+  top: -15px;
+  font-weight: 400;
+}
 .units .active {
   color: rgba(0, 0, 0, 0.5);
+  cursor: default;
 }
 .units .active:hover {
   text-decoration: none;
