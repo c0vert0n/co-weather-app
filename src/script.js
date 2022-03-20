@@ -36,6 +36,28 @@ function currentDateTime() {
   h2.innerHTML = `${currentDay}, ${currentMonth} ${currentDate}, ${currentHour}:${currentMinutes}`;
 }
 
+function returnForecast() {
+  let weeklyForecast = document.querySelector("#forecast");
+  let weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri"];
+  let weeklyForecastHTML = `<div class="row">`;
+
+  weekdays.forEach(function (day) {
+    weeklyForecastHTML =
+      weeklyForecastHTML +
+      `<div class="col-sm-2">
+                  <div class="weekday">${day} </div>
+                  <div class="weekday-weather-icon">🌤</div>
+                  <div class="weekday-temperature">
+                  <span class="weekday-high">72°</span>
+                  <span class="weekday-low">43°</span>
+                  </div>
+                </div>
+        `;
+  });
+  weeklyForecastHTML = weeklyForecastHTML + `</div>`;
+  weeklyForecast.innerHTML = weeklyForecastHTML;
+}
+
 // Search City Temperature
 function getSearchCityData(event) {
   event.preventDefault();
@@ -143,8 +165,9 @@ function defaultSearch(city) {
 
 let celsiusTemperature = null;
 
-currentDateTime();
 defaultSearch("Los Angeles");
+currentDateTime();
+returnForecast();
 
 let linkCelsius = document.querySelector("#celsius-link");
 linkCelsius.addEventListener("click", convertCelsius);

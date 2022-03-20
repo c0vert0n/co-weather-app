@@ -58,10 +58,6 @@ li {
 .weather-description {
   text-transform: capitalize;
 }
-.weekly-forecast {
-  max-width: 450px;
-  margin: 25px 0px 15px 5px;
-}
 .search-form {
   padding: 10px;
   margin-top: 10px;
@@ -94,12 +90,18 @@ li {
 .units .active:hover {
   text-decoration: none;
 }
-.fa-cog {
-  font-size: larger;
-  opacity: 0.5;
-  text-align: right;
+.weekly-forecast {
+  text-align: center;
 }
-.fa-sun {
-  font-size: 55px;
-  color: gold;
+.weekday {
+  font-size: 18px;
+}
+.weekday-weather-icon {
+  font-size: 20px;
+}
+.weekday-temperature {
+  font-size: 15px;
+}
+.weekday-low {
+  opacity: 0.5;
 }
