@@ -38,14 +38,13 @@ function currentDateTime() {
 
 function getForecast(coordinates) {
   let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
-  let coordApiUrl = `
-https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=$"${apiKey}"
+  let apiURL = `
+https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}
 `;
-  axios.get(coordApiUrl).then(displayForecast);
+  axios.get(apiURL).then(displayForecast);
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily);
   let weeklyForecast = document.querySelector("#forecast");
   let weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri"];
   let weeklyForecastHTML = `<div class="row">`;
@@ -122,9 +121,6 @@ function getCurrentLocation() {
   navigator.geolocation.getCurrentPosition(getLocation);
 }
 
-let currentBtn = document.querySelector("#current-city");
-currentBtn.addEventListener("click", getCurrentLocation);
-
 // change current temperature with celsius/fahrenheit links
 function convertCelsius(event) {
   event.preventDefault();
@@ -154,7 +150,9 @@ let celsiusTemperature = null;
 
 defaultSearch("Los Angeles");
 currentDateTime();
-returnForecast();
+
+let currentBtn = document.querySelector("#current-city");
+currentBtn.addEventListener("click", getCurrentLocation);
 
 let linkCelsius = document.querySelector("#celsius-link");
 linkCelsius.addEventListener("click", convertCelsius);
