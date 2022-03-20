@@ -36,7 +36,16 @@ function currentDateTime() {
   h2.innerHTML = `${currentDay}, ${currentMonth} ${currentDate}, ${currentHour}:${currentMinutes}`;
 }
 
-function returnForecast() {
+function getForecast(coordinates) {
+  let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
+  let coordApiUrl = `
+https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=$"${apiKey}"
+`;
+  axios.get(coordApiUrl).then(displayForecast);
+}
+
+function displayForecast(response) {
+  console.log(response.data.daily);
   let weeklyForecast = document.querySelector("#forecast");
   let weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri"];
   let weeklyForecastHTML = `<div class="row">`;
@@ -66,31 +75,7 @@ function getSearchCityData(event) {
   let units = "metric";
   let cityWeatherApiURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&units=${units}&appid=${apiKey}`;
 
-  axios.get(cityWeatherApiURL).then(searchCityTemp);
-}
-
-function searchCityTemp(response) {
-  let currentCity = response.data.name;
-  let header = `${currentCity}`;
-  let h1 = document.querySelector("h1");
-  let searchCityTemperature = document.querySelector("#current-temp");
-  let currentDescription = document.querySelector("#description");
-  let currentHumidity = document.querySelector("#humidity");
-  let currentWind = document.querySelector("#wind");
-  let weatherIcon = document.querySelector("#weather-icon");
-
-  celsiusTemperature = response.data.main.temp;
-
-  h1.innerHTML = header;
-  searchCityTemperature.innerHTML = Math.round(celsiusTemperature);
-  currentDescription.innerHTML = response.data.weather[0].description;
-  currentHumidity.innerHTML = response.data.main.humidity;
-  currentWind.innerHTML = Math.round(response.data.wind.speed);
-  weatherIcon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  weatherIcon.setAttribute("alt", `${currentDescription}`);
+  axios.get(cityWeatherApiURL).then(showCurrentTemp);
 }
 
 let form = document.querySelector("#search-form");
@@ -129,6 +114,8 @@ function showCurrentTemp(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   weatherIcon.setAttribute("alt", `${currentDescription}`);
+
+  getForecast(response.data.coord);
 }
 
 function getCurrentLocation() {
