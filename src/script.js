@@ -39,34 +39,52 @@ function currentDateTime() {
 function getForecast(coordinates) {
   let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
   let apiURL = `
-https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}
+https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=hourly,minutely,alerts&units=metric&appid=${apiKey}
 `;
   axios.get(apiURL).then(displayForecast);
 }
 
+// weekly forecast
+function formatWeekday(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayForecast(response) {
+  let forecast = response.data.daily;
+  console.log(response);
+
   let weeklyForecast = document.querySelector("#forecast");
-  let weekdays = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri"];
   let weeklyForecastHTML = `<div class="row">`;
 
-  weekdays.forEach(function (day) {
-    weeklyForecastHTML =
-      weeklyForecastHTML +
-      `<div class="col-sm-2">
-                  <div class="weekday">${day} </div>
-                  <div class="weekday-weather-icon">🌤</div>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      weeklyForecastHTML =
+        weeklyForecastHTML +
+        `<div class="col-sm-2">
+                  <div class="weekday">${formatWeekday(forecastDay.dt)} </div>
+                  <img src="http://openweathermap.org/img/wn/${
+                    forecastDay.weather[0].icon
+                  }@2x.png" width="55px" />
                   <div class="weekday-temperature">
-                  <span class="weekday-high">72°</span>
-                  <span class="weekday-low">43°</span>
+                  <span class="weekday-high">${Math.round(
+                    forecastDay.temp.max
+                  )}°</span>
+                  <span class="weekday-low">${Math.round(
+                    forecastDay.temp.min
+                  )}°</span>
                   </div>
                 </div>
         `;
+    }
   });
   weeklyForecastHTML = weeklyForecastHTML + `</div>`;
   weeklyForecast.innerHTML = weeklyForecastHTML;
 }
 
-// Search City Temperature
+// search city temperature
 function getSearchCityData(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#city-input").value;
@@ -77,10 +95,7 @@ function getSearchCityData(event) {
   axios.get(cityWeatherApiURL).then(showCurrentTemp);
 }
 
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", getSearchCityData);
-
-// Current City Temperature
+// current city temperature
 function getLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -91,6 +106,7 @@ function getLocation(position) {
   axios.get(weatherApiUrl).then(showCurrentTemp);
 }
 
+// get current temperature
 function showCurrentTemp(response) {
   let currentCity = response.data.name;
   let header = `${currentCity}`;
@@ -121,24 +137,6 @@ function getCurrentLocation() {
   navigator.geolocation.getCurrentPosition(getLocation);
 }
 
-// change current temperature with celsius/fahrenheit links
-function convertCelsius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temp");
-  linkCelsius.classList.add("active");
-  linkFahrenheit.classList.remove("active");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);
-}
-
-function convertFahrenheit(event) {
-  event.preventDefault();
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  linkCelsius.classList.remove("active");
-  linkFahrenheit.classList.add("active");
-  let temperatureElement = document.querySelector("#current-temp");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-}
-
 // default search city temp
 function defaultSearch(city) {
   let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
@@ -146,16 +144,12 @@ function defaultSearch(city) {
   axios.get(apiUrl).then(showCurrentTemp);
 }
 
-let celsiusTemperature = null;
-
 defaultSearch("Los Angeles");
+
 currentDateTime();
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", getSearchCityData);
 
 let currentBtn = document.querySelector("#current-city");
 currentBtn.addEventListener("click", getCurrentLocation);
-
-let linkCelsius = document.querySelector("#celsius-link");
-linkCelsius.addEventListener("click", convertCelsius);
-
-let linkFahrenheit = document.querySelector("#fahrenheit-link");
-linkFahrenheit.addEventListener("click", convertFahrenheit);
