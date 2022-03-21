@@ -36,6 +36,7 @@ function currentDateTime() {
   h2.innerHTML = `${currentDay}, ${currentMonth} ${currentDate}, ${currentHour}:${currentMinutes}`;
 }
 
+// weekly forecast
 function getForecast(coordinates) {
   let apiKey = "bcf9720f0367350350dbbc0b6b9dd4da";
   let apiURL = `
@@ -44,7 +45,6 @@ https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coo
   axios.get(apiURL).then(displayForecast);
 }
 
-// weekly forecast
 function formatWeekday(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -54,8 +54,6 @@ function formatWeekday(timestamp) {
 
 function displayForecast(response) {
   let forecast = response.data.daily;
-  console.log(response);
-
   let weeklyForecast = document.querySelector("#forecast");
   let weeklyForecastHTML = `<div class="row">`;
 
